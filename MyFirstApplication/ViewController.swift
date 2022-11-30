@@ -21,6 +21,9 @@ class ViewController: UIViewController {
 
         
         // development branch is created.
+        
+        
+        //second commit from mgazidogan on zoom
         getAllNames()
     }
     
