@@ -19,8 +19,6 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        
-        // development branch is created.
         getAllNames()
     }
     
