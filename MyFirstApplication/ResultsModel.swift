@@ -21,7 +21,7 @@ struct ResultsModel: Codable {
     var created:String?
 }
 
-// MODELS (Origin,Location,Episode)
+// MODELS (Origin,Location)
 
 struct OriginModel: Codable{
     var name:String?

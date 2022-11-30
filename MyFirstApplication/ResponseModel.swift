@@ -8,8 +8,6 @@
 import Foundation
 
 struct ResponseModel:Codable {
-    
     var info:InfoModel?
     var results:[ResultsModel]?
-    
 }

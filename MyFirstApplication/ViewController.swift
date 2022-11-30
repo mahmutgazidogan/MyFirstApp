@@ -18,28 +18,24 @@ class ViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-
         getAllNames()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let index = sender as? Int {
-            let gotoDetailVC = segue.destination as? DetailViewController
-            let dt = dataList[index]
-            gotoDetailVC?.characterDetail = dt
-        }
+        guard let index = sender as? Int else { return }
+        let gotoDetailVC = segue.destination as? DetailViewController
+        let dt = dataList[index]
+        gotoDetailVC?.characterDetail = dt
     }
     
     func getAllNames(){
         
         let url = URL(string: "https://rickandmortyapi.com/api/character")!
         URLSession.shared.dataTask(with: url){ data,response,error in
-            
             if error != nil || data == nil {
                 print("Error")
                 return
             }
-            
             do{
                 let answer = try JSONDecoder().decode(ResponseModel.self, from: data!)
                 if let comingNameList = answer.results {
@@ -47,19 +43,14 @@ class ViewController: UIViewController {
                 } else{
                     self.dataList = [ResultsModel]()
                 }
-                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-                
             } catch{
                 print(error.localizedDescription)
             }
-            
         }.resume()
-        
     }
-    
 }
 
 extension UIImageView {
@@ -71,15 +62,12 @@ extension UIImageView {
                         self?.image = image
                     }
                 }
-            } else{
-                UITableViewCell().reloadInputViews()
-                return
             }
         }
     }
 }
 
-extension ViewController:UITableViewDataSource,UITableViewDelegate {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -94,11 +82,6 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: - Yeni erkan gecisi burada yapilacak her celle tiklandiginda o celldeki veriler diger viewControllerda gosterilecek bunuda modeli gecirerek yapabilirsin veya tek tek degiskenleri
-        //var characterDetail: ResultsModel? gidilecek vc
-        // let dt = dataList[indexPath.row]
-        // vc.characterDetail = dt
-        
         self.performSegue(withIdentifier: "toDetailVC", sender: indexPath.row)
     }
     
