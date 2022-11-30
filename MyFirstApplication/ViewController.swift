@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        // Get all
         getAllNames()
     }
     
